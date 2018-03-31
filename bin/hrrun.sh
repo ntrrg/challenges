@@ -15,10 +15,25 @@ main() {
 
   CHALLENGES=${@:-challenges}
 
-  find "${CHALLENGES}" \
-    -type f \
-    -name "solution.*" \
-    -execdir test_challenge.sh "${TEST_CASE}" \;
+  CHALLENGES=$(
+    find "${CHALLENGES}" -type f -name "solution.*" |
+    sed "s/ /_ESPACE_/g"
+  )
+
+  for CHALLENGE in ${CHALLENGES}; do
+    CHALLENGE="$(echo ${CHALLENGE} | sed "s/_ESPACE_/ /g")"
+
+    cd "$(dirname "${CHALLENGE}")" &&
+    test_challenge.sh "${TEST_CASE}"
+
+    ERROR_CODE=$?
+
+    cd ${OLDPWD}
+
+    if [ ! ${ERROR_CODE} -eq 0 ]; then
+      return ${ERROR_CODE}
+    fi
+  done
 }
 
 print_help() {

@@ -1,12 +1,18 @@
 #!/bin/sh
 
 main() {
-  echo "$(basename "${PWD}")"
+  echo "${PWD}"
 
   TEST_CASE=$1
 
   if [ -n "${TEST_CASE}" ]; then
     run
+
+    ERROR_CODE=$?
+
+    if [ ! ${ERROR_CODE} -eq 0 ]; then
+      return ${ERROR_CODE}
+    fi
   else
     TEST_CASES="$(find "input" -name "input??.txt")"
 
@@ -15,6 +21,12 @@ main() {
 
       echo "  Test case ${TEST_CASE}:"
       run
+
+      ERROR_CODE=$?
+
+      if [ ! ${ERROR_CODE} -eq 0 ]; then
+        return ${ERROR_CODE}
+      fi
     done
   fi
 }
@@ -33,11 +45,18 @@ run() {
 
   cat "${INPUT}" |
     go run solution.go |
-    diff -ywB --suppress-common-lines --color=always - "${OUTPUT}" &&
-      echo "    Pass" ||
-      (echo "    Fail"; return 1)
+    diff -ywB --suppress-common-lines --color=always - "${OUTPUT}"
 
-  echo
+  ERROR_CODE=$?
+
+  if [ ${ERROR_CODE} -eq 0 ]; then
+    echo "    Pass"
+    echo
+  else
+    echo "    Fail"
+    echo
+    return ${ERROR_CODE}
+  fi
 }
 
 main $@
