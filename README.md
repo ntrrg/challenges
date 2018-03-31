@@ -36,7 +36,7 @@
 If you use Docker, just run the following command:
 
 ```sh
-docker run --rm -it ntrrg/hackerrank
+docker run --rm ntrrg/hackerrank
 ```
 
 ## Acknowledgment
@@ -61,4 +61,8 @@ Solving the challenges I use/used:
 
 * [EditorConfig](http://editorconfig.org/)
 
+* [Docker](https://docker.com)
+
 * [Github](https://github.com)
+
+* [Travis CI](https://travis-ci.org)
