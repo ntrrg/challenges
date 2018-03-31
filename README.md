@@ -1,3 +1,6 @@
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ntrrg/hackerrank/raw/master/LICENSE)
+[![Build Status](https://travis-ci.org/ntrrg/hackerrank.svg?branch=master)](https://travis-ci.org/ntrrg/hackerrank)
+
 ## Usage
 
 1. Get the source
@@ -34,12 +37,6 @@ If you use Docker, just run the following command:
 
 ```sh
 docker run --rm -it ntrrg/hackerrank
-```
-
-And inside the container run:
-
-```sh
-hrrun.sh
 ```
 
 ## Acknowledgment
