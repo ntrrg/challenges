@@ -26,14 +26,16 @@ run() {
   if [ ! -f "${INPUT}" ]; then
     echo "  The test case ${TEST_CASE} doesn't exists"
     echo
-    exit 1
+    return 1
   fi
+
+  go fmt solution.go
 
   cat "${INPUT}" |
     go run solution.go |
-    diff -yw --suppress-common-lines --color=always - "${OUTPUT}" &&
+    diff -ywB --suppress-common-lines --color=always - "${OUTPUT}" &&
       echo "    Pass" ||
-      echo "    Fail"
+      (echo "    Fail"; return 1)
 
   echo
 }
