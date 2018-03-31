@@ -45,7 +45,7 @@ run() {
 
   cat "${INPUT}" |
     go run solution.go |
-    diff -ywB --suppress-common-lines --color=always - "${OUTPUT}"
+    diff -wB - "${OUTPUT}"
 
   ERROR_CODE=$?
 
