@@ -1,0 +1,15 @@
+os: linux
+dist: trusty
+sudo: required
+git:
+  depth: 1
+branches:
+  only:
+  - master
+before_script: docker pull golang:1.10-alpine3.7
+script:
+  - docker build -t ntrrg/hackerrank .
+  - docker run --rm ntrrg/hackerrank
+after_success:
+  - docker login -u "${DOCKER_USER}" -p "${DOCKER_PASSWD}"
+  - docker push ntrrg/hackerrank
