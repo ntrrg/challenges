@@ -19,7 +19,7 @@
    source bin/activate.sh
    ```
 
-   If Go v1.10 is not installed, run:
+   If Go v1.10.1 is not installed, run:
 
    ```sh
    source go_activate.sh

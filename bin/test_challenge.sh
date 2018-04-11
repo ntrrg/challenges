@@ -42,10 +42,11 @@ run() {
   fi
 
   go fmt solution.go
+  go vet solution.go || return $?
 
-  cat "${INPUT}" |
-    go run solution.go |
-    diff -wB - "${OUTPUT}"
+  echo "$(cat "${OUTPUT}")" > /tmp/EXPECT
+  echo "$(cat "${INPUT}" | go run solution.go)" > /tmp/RESULT
+  diff /tmp/EXPECT /tmp/RESULT
 
   ERROR_CODE=$?
 

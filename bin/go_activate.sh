@@ -1,19 +1,25 @@
 #!/bin/sh
 
 OLD_PATH="${PATH}"
-RELEASE=${1:-1.10}
+RELEASE=${1:-1.10.1}
 GOENVS=${GOENVS:-${HOME}/.local/share/go}
 TARGET="${GOENVS}/go${RELEASE}.linux-amd64"
 
 clean_env() {
-  unset GOENVS PACKAGE RELEASE TARGET
+  unset PACKAGE RELEASE TARGET
   trap - INT TERM EXIT
 }
 
 on_error() {
   clean_env
-  export PATH="${OLD_PATH}"
-  unset OLD_PATH TARGET
+
+  export PATH="$(
+    echo "${PATH}" |
+    sed "s/$(echo "${GOROOT}/bin:" | sed -re "s/\//\\\\\//g")//" |
+    sed "s/$(echo "${GOPATH}/bin:" | sed -re "s/\//\\\\\//g")//"
+  )"
+
+  unset TARGET
 
   return 1
 }
@@ -33,19 +39,22 @@ else
 
     (cd "/tmp" && wget -c "https://dl.google.com/go/${PACKAGE}") &&
     mkdir -p "${GOENVS}" &&
-    (cd "${GOENVS}" && tar -xf "/tmp/${PACKAGE}" && mv go "${TARGET}")
+    (cd "${GOENVS}" && tar -xf "/tmp/${PACKAGE}" && mv go "${GOROOT}")
 
     echo
     echo "Done"
   fi
 
-  export PATH="${GOROOT}/bin:${PATH}"
-
   if [ -z "$GOPATH" ]; then
-    echo "Where is your workspace? (~/go)"
-    read GOPATH
-    export GOPATH=${GOPATH:-${HOME}/go}
+    export GOPATH="${HOME}/go"
+
+    echo "By default, Go uses '~/go' as workspace, you can change this using:"
+    echo "  * ln -sf /path/to/myworkspace ~/go (recommended)"
+    echo "  * export GOPATH=/path/to/myworkspace"
+    echo
   fi
+
+  export PATH="${GOPATH}/bin:${GOROOT}/bin:${PATH}"
 
   echo "Go v${RELEASE} activated"
   clean_env
