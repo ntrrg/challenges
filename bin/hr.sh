@@ -22,8 +22,10 @@ main() {
       ;;
   esac
 
+  challenges="$@"
+
   challenges=$(
-    find "${1:-HackerRank}" -type f -name "solution.*" |
+    find "${challenges:-HackerRank}" -type f -name "solution.*" |
     sort |
     sed "s/ /_ESPACE_/g"
   )
