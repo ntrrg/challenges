@@ -1,47 +1,12 @@
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ntrrg/hackerrank/raw/master/LICENSE)
-[![Build Status](https://travis-ci.org/ntrrg/hackerrank.svg?branch=master)](https://travis-ci.org/ntrrg/hackerrank)
+[![Travis build btatus](https://travis-ci.com/ntrrg/challenges.svg?branch=master)](https://travis-ci.com/ntrrg/challenges)
 
-## Usage
+This is my collection of Go programs for coding challenges.
 
-1. Get the source
-
-   ```sh
-   git clone https://github.com/ntrrg/hackerrank.git
-   ```
-
-   ```sh
-   cd hackerrank
-   ```
-
-2. Setup the environment
-
-   ```sh
-   source bin/activate.sh
-   ```
-
-   If Go v1.10.1 is not installed, run:
-
-   ```sh
-   source go_activate.sh
-   ```
-
-3. Run the tests
-
-   ```sh
-   hrrun.sh
-   ```
-
-### Docker
-
-If you use Docker, just run the following command:
-
-```sh
-docker run --rm ntrrg/hackerrank
-```
+* [HackerRank](https://www.hackerrank.com/)
 
 ## Acknowledgment
 
-Solving the challenges I use/used:
+Solving this challenges I use/used:
 
 * [Debian](https://www.debian.org/)
 
@@ -66,3 +31,8 @@ Solving the challenges I use/used:
 * [Github](https://github.com)
 
 * [Travis CI](https://travis-ci.org)
+
+* [Vim](https://www.vim.org/)
+
+* [Mage](https://magefile.org/)
+
