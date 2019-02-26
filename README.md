@@ -34,5 +34,3 @@ Solving this challenges I use/used:
 
 * [Vim](https://www.vim.org/)
 
-* [Mage](https://magefile.org/)
-
