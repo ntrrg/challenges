@@ -1,5 +1,5 @@
-FROM golang:1.10-alpine3.7
-COPY . /hackerrank
-WORKDIR /hackerrank
-ENV PATH="/hackerrank/bin:${PATH}"
-CMD ["hrrun.sh"]
+FROM golang:1.12-alpine3.9
+WORKDIR /src
+COPY . .
+ENTRYPOINT ["hrrun.sh"]
+
