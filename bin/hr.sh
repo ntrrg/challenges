@@ -17,7 +17,7 @@ main() {
       ;;
 
     -t | --test )
-      testCases=$2
+      tc=$2
       shift; shift
       ;;
   esac
@@ -36,7 +36,9 @@ main() {
     echo "$challenge"
     cd "$challenge"
 
-    if [ -z "$testCases" ]; then
+    testCases="$tc"
+
+    if [ -z "$tc" ]; then
       testCases="$(find "input" -name "input??.txt")"
     fi
 
@@ -74,7 +76,7 @@ run() {
 
 printHelp() {
   cat <<EOF
-Usage: $0 [-t testCase] [PATH]
+Usage: $0 [-t TEST_CASE] [PATH]
 
 Arguments:
 
