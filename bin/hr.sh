@@ -56,12 +56,20 @@ run() {
 
   if [ ! -f "$input" ]; then
     echo "  The test case $testCase doesn't exists"
-    return 1
+    return
   fi
 
   echo "$(cat "${output}")" > /tmp/EXPECT
   echo "$(cat "${input}" | go run solution.go)" > /tmp/RESULT
   diff /tmp/EXPECT /tmp/RESULT && echo "PASS" || echo "FAIL"
+
+  gofmt -d -e -s solution.go > /tmp/LINT
+
+  if [ -n "$(cat /tmp/LINT)" ]; then
+    echo
+    echo "  Code style issues:"
+    cat /tmp/LINT
+  fi
 }
 
 printHelp() {
