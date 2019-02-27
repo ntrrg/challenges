@@ -39,7 +39,7 @@ main() {
     testCases="$tc"
 
     if [ -z "$tc" ]; then
-      testCases="$(find "input" -name "input??.txt")"
+      testCases="$(find "input" -name "input??.txt" | sort)"
     fi
 
     for testCase in $testCases; do
