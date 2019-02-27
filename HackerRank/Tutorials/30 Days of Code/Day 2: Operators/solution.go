@@ -15,7 +15,7 @@ func solve(meal_cost float64, tip_percent int32, tax_percent int32) {
 	total += meal_cost
 	total += float64(tip_percent) / 100 * meal_cost
 	total += float64(tax_percent) / 100 * meal_cost
-	fmt.Println("The total meal cost is", int64(total), "dollars.")
+	fmt.Println(int64(total + 0.5))
 }
 
 func main() {
