@@ -1,8 +1,8 @@
 [![Travis build btatus](https://travis-ci.com/ntrrg/challenges.svg?branch=master)](https://travis-ci.com/ntrrg/challenges)
 
-This is my collection of Go programs for coding challenges.
+This is my collection of coding challenges (written in Go, mostly).
 
-* [HackerRank](https://www.hackerrank.com/)
+* [HackerRank](https://www.hackerrank.com/) ([hr/](hr/))
 
 ## Acknowledgment
 
