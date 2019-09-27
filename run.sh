@@ -17,7 +17,7 @@ main() {
       ;;
   esac
 
-  CHALLENGES="$(find "${1:-$CHALLENGES_DIR}" -type f -name ".env" | sort)"
+  CHALLENGES="$(find "${1:-$CHALLENGES_DIR}" -type f -name ".env")"
 
   for CHALLENGE in $CHALLENGES; do
     DIR="$(dirname "$CHALLENGE")"
@@ -35,7 +35,7 @@ main() {
 
     cd "$DIR"
 
-    TEST_CASES="${TEST_CASES:-$(find "input" -name "input??.txt" | sort)}"
+    TEST_CASES="${TEST_CASES:-$(find "input" -name "input??.txt")}"
 
     for TEST_CASE in $TEST_CASES; do
       TEST_CASE="$(echo "$TEST_CASE" | grep -o "[0-9][0-9]")"

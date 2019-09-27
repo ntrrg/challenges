@@ -9,5 +9,7 @@ env:
 jobs:
   include:
     - stage: "HackerRank"
-      script: bin/hr.sh
+      script: ./run.sh challenges/hackerrank
+    - stage: "Project Euler"
+      script: ./run.sh challenges/project-euler
 
