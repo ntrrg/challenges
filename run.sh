@@ -12,7 +12,7 @@ main() {
       ;;
 
     -t | --test )
-      TEST_CASES="input/input$2.txt"
+      TEST_CASES_FLAG="input/input$2.txt"
       shift; shift
       ;;
   esac
@@ -35,12 +35,19 @@ main() {
 
     cd "$DIR"
 
-    TEST_CASES="${TEST_CASES:-$(find "input" -name "input??.txt")}"
+    TEST_CASES="${TEST_CASES_FLAG:-$(find "input" -name "input??.txt")}"
 
     for TEST_CASE in $TEST_CASES; do
       TEST_CASE="$(echo "$TEST_CASE" | grep -o "[0-9][0-9]")"
+      INPUT="input/input$TEST_CASE.txt"
+      OUTPUT="output/output$TEST_CASE.txt"
+
+      if [ ! -f "$INPUT" ] || [ ! -f "$OUTPUT" ]; then
+        continue
+      fi
+
       printf "%s  * Test case %s: " "$PREFIX" "$TEST_CASE"
-      (run "$TEST_CASE" && echo "[PASS]") || echo "[FAIL]"
+      run "$LANGUAGE" "$INPUT" "$OUTPUT" || true
     done
 
     cd "$OLDPWD"
@@ -59,10 +66,30 @@ get_prefix() {
 }
 
 run() {
-  TEST_CASE="$1"
-  GOT="$(cat "input/input$TEST_CASE.txt" | go run main.go)"
+  case $1 in
+    go )
+      if [ -x "solution" ]; then
+        GOT="$(cat "$2" | ./solution)"
+      else
+        GOT="$(cat "$2" | go run main.go)"
+      fi
+      ;;
 
-  printf "%s" "$GOT" | diff "output/output$TEST_CASE.txt" -
+    * )
+      echo "Unsupported language '$1'"
+      return 1
+      ;;
+  esac
+
+  WANT="$(cat "$3")"
+
+  if [ "$GOT" != "$WANT" ]; then
+    echo "[FAIL]\nGot:\n$GOT\nWant:\n$WANT"
+    return 1
+  fi
+
+  echo "[PASS]"
+  return 0
 }
 
 show_help() {
@@ -86,7 +113,7 @@ EOF
 }
 
 CHALLENGES_DIR="challenges"
-TEST_CASES=""
+TEST_CASES_FLAG=""
 
 main "$@"
 

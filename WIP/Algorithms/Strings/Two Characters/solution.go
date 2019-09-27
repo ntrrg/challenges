@@ -27,7 +27,7 @@ func findLongestPatternLen(s *string) int {
 
 	for _, v := range s {
 		if p, ok := patterns[v]; !ok {
-			
+
 		}
 
 		n := Node{v}
@@ -36,7 +36,6 @@ func findLongestPatternLen(s *string) int {
 }
 
 type Pattern struct {
-	count int
+	count  int
 	values []*string
 }
-

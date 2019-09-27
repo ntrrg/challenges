@@ -2,7 +2,8 @@
 
 This is my collection of coding challenges (written in Go, mostly).
 
-* [HackerRank](https://www.hackerrank.com/) ([hr/](hr/))
+* [HackerRank](https://hackerrank.com)
+* [Project Euler](https://project-euler.net)
 
 ## Acknowledgment
 
