@@ -1,3 +1,6 @@
+// Copyright 2019 Miguel Angel Rivera Notararigo. All rights reserved.
+// This source code was released under the MIT license.
+
 package main
 
 import (
@@ -8,13 +11,13 @@ import (
 )
 
 func main() {
-	var _ = strconv.Itoa // Ignore this comment. You can still use the package "strconv".
+	var (
+		i uint64  = 4
+		d float64 = 4.0
+		s string  = "HackerRank "
+	)
 
-	var i uint64 = 4
-	var d float64 = 4.0
-	var s string = "HackerRank "
-
-	scanner := bufio.NewScanner(os.Stdin)
+	scn := bufio.NewScanner(os.Stdin)
 
 	// Declare second integer, double, and String variables.
 
@@ -26,14 +29,14 @@ func main() {
 
 	// Read and save an integer, double, and String to your variables.
 
-	scanner.Scan()
-	i2, _ = strconv.ParseUint(scanner.Text(), 10, 64)
+	scn.Scan()
+	i2, _ = strconv.ParseUint(scn.Text(), 10, 64)
 
-	scanner.Scan()
-	d2, _ = strconv.ParseFloat(scanner.Text(), 64)
+	scn.Scan()
+	d2, _ = strconv.ParseFloat(scn.Text(), 64)
 
-	scanner.Scan()
-	s2 = scanner.Text()
+	scn.Scan()
+	s2 = scn.Text()
 
 	// Print the sum of both integer variables on a new line.
 
