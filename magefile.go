@@ -13,8 +13,9 @@ import (
 )
 
 var (
-	Default = Build
-	goFiles = getGoFiles()
+	Default  = Build
+	goFiles  = getGoFiles()
+	binFiles = getBinFiles()
 )
 
 func Build() error {
@@ -28,6 +29,16 @@ func Build() error {
 		c.Stdout = os.Stdout
 
 		if err := c.Run(); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func Clean() error {
+	for _, p := range binFiles {
+		if err := sh.Rm(p); err != nil {
 			return err
 		}
 	}
@@ -58,6 +69,21 @@ func Lint() error {
 }
 
 // Helpers
+
+func getBinFiles() []string {
+	var binFiles []string
+
+	filepath.Walk(".", func(path string, info os.FileInfo, err error) error {
+		if filepath.Base(path) != "solution" {
+			return nil
+		}
+
+		binFiles = append(binFiles, path)
+		return nil
+	})
+
+	return binFiles
+}
 
 func getGoFiles() []string {
 	var goFiles []string
