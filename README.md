@@ -3,7 +3,7 @@
 This is my collection of coding challenges (written in Go, mostly).
 
 * [HackerRank](https://hackerrank.com)
-* [Project Euler](https://project-euler.net)
+* [Project Euler](https://projecteuler.net)
 
 ## Acknowledgment
 
