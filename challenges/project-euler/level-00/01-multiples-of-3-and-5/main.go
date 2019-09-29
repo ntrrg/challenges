@@ -7,7 +7,7 @@ import (
 func main() {
 	var n, r int
 
-	fmt.Scanf("%d", &n)
+	fmt.Scan(&n)
 
 	for n > 3 {
 		n = n - 1
