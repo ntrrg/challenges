@@ -4,15 +4,13 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 )
 
 func main() {
-	s := bufio.NewScanner(os.Stdin)
+	var s string
 
-	s.Scan()
 	fmt.Println("Hello, World.")
-	fmt.Println(s.Text())
+	fmt.Scanln(&s)
+	fmt.Println(s)
 }
