@@ -17,6 +17,7 @@ main() {
       ;;
   esac
 
+  ERRORS=0
   CHALLENGES="$(find "${1:-$CHALLENGES_DIR}" -type f -name ".env" | sort)"
 
   for CHALLENGE in $CHALLENGES; do
@@ -47,15 +48,17 @@ main() {
       fi
 
       printf "%s  * Test case %s: " "$PREFIX" "$TEST_CASE"
-      run "$LANGUAGE" "$INPUT" "$OUTPUT" || true
+      run "$LANGUAGE" "$INPUT" "$OUTPUT" || ERRORS=$?
     done
 
     cd "$OLDPWD"
   done
+
+  return $ERRORS
 }
 
 get_prefix() {
-  COUNT=$(( ($(echo "$1" | tr "/" "\n" | wc -l) - 2) * 2 ))
+  local COUNT=$(( ($(echo "$1" | tr "/" "\n" | wc -l) - 2) * 2 ))
 
   while [ $COUNT -gt 0 ]; do
     printf " "
@@ -66,13 +69,13 @@ get_prefix() {
 }
 
 run() {
+  local GOT=""
+  local WANT=""
+
   case $1 in
     go )
-      if [ -x "solution" ]; then
-        GOT="$(cat "$2" | ./solution)"
-      else
-        GOT="$(cat "$2" | go run main.go)"
-      fi
+      go build -o solution main.go
+      GOT="$(cat "$2" | ./solution)"
       ;;
 
     * )
