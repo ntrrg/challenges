@@ -13,28 +13,10 @@ import (
 )
 
 var (
-	Default  = Build
+	Default  = Run
 	goFiles  = getGoFiles()
 	binFiles = getBinFiles()
 )
-
-func Build() error {
-	for _, file := range goFiles {
-		if filepath.Base(file) != "main.go" {
-			continue
-		}
-
-		c := exec.Command("go", "build", "-o", "solution", "main.go")
-		c.Dir = filepath.Dir(file)
-		c.Stdout = os.Stdout
-
-		if err := c.Run(); err != nil {
-			return err
-		}
-	}
-
-	return nil
-}
 
 func Clean() error {
 	for _, p := range binFiles {
@@ -46,6 +28,13 @@ func Clean() error {
 	return nil
 }
 
+func Run() error {
+	c := exec.Command("./run.sh")
+	c.Stdout = os.Stdout
+
+	return c.Run()
+}
+
 // Development
 
 func CA() error {
@@ -53,7 +42,7 @@ func CA() error {
 }
 
 func CI() {
-	mg.SerialDeps(Lint, CA, Build)
+	mg.SerialDeps(Run, Lint, CA)
 }
 
 func Format() error {
