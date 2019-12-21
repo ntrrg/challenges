@@ -1,4 +1,4 @@
-[![Travis build btatus](https://travis-ci.com/ntrrg/challenges.svg?branch=master)](https://travis-ci.com/ntrrg/challenges)
+[![GitHub Actions](https://github.com/ntrrg/challenges/workflows/Go/badge.svg)](https://github.com/ntrrg/challenges/actions?query=workflow:Go)
 
 This is my collection of coding challenges (written in Go, mostly).
 

@@ -1,0 +1,39 @@
+name: Go
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  ci:
+    name: CI
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        go_version: ["1.13"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Set up Go
+        uses: actions/setup-go@v1
+        with:
+          go-version: ${{ matrix.go_version }}
+
+      - name: Get source code
+        uses: actions/checkout@v1
+
+      - name: Get dependencies
+        run: |
+          go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.21.0
+          .mage/compile.sh
+
+      - name: Lint
+        run: ./mage -v lint
+
+      - name: Code Analysis
+        run: ./mage -v ca
+
+      - name: Run
+        run: ./mage -v run
+
