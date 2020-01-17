@@ -21,7 +21,7 @@ main() {
 
   local CHALLENGES="$(
     find "${1:-$CHALLENGES_DIR}" -type f -name ".env" |
-    sort
+    LC_ALL="C" sort
   )"
 
   local CHALLENGE=""
@@ -55,7 +55,7 @@ main() {
 
     local TEST_CASES="${TEST_CASES_FLAG:-$(
       find "input" -name "input??.txt" |
-      sort
+      LC_ALL="C" sort
     )}"
 
     local TEST_CASE=""
