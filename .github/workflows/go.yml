@@ -24,15 +24,10 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Get dependencies
-        run: |
-          go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.21.0
-          .mage/compile.sh
+        run: .mage/compile.sh
 
       - name: Lint
         run: ./mage -v lint
-
-      - name: Code Analysis
-        run: ./mage -v ca
 
       - name: Run
         run: ./mage -v run

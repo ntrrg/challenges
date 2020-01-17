@@ -37,12 +37,8 @@ func Run() error {
 
 // Development
 
-func CA() error {
-	return sh.RunV("golangci-lint", "run")
-}
-
 func CI() {
-	mg.SerialDeps(Run, Lint, CA)
+	mg.SerialDeps(Run, Lint)
 }
 
 func Format() error {
