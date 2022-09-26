@@ -4,6 +4,9 @@
 
 set -e
 
+CHALLENGES_DIR="challenges"
+TEST_CASES_FLAG=""
+
 main() {
   case $1 in
     -h | --help )
@@ -120,9 +123,6 @@ Options:
     Run 'solution.*' against TEST_CASE test case. e.g. 00, 01.
 EOF
 }
-
-CHALLENGES_DIR="challenges"
-TEST_CASES_FLAG=""
 
 main "$@"
 

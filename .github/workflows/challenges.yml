@@ -1,0 +1,39 @@
+name: Challenges
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  ci:
+    name: CI
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+        go_version:
+          - "1.16"
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Set up Go
+        uses: actions/setup-go@v1
+        with:
+          go-version: ${{ matrix.go_version }}
+
+      - name: Set up tools
+        run: |
+          wget -qO "/tmp/mage.tar.gz" 'https://github.com/magefile/mage/releases/download/v1.11.0/mage_1.11.0_Linux-64bit.tar.gz'
+          tar -xf "/tmp/mage.tar.gz" -C "/tmp/"
+          sudo cp "/tmp/mage" "/usr/bin/"
+
+      - name: Get source code
+        uses: actions/checkout@v2
+
+      - name: Lint
+        run: ./mage -v challenges:lint
+
+      - name: Run
+        run: ./mage -v challenges:run
+
